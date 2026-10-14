@@ -239,3 +239,35 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--vf-lime);outline-of
  .hero-media,.work-card,.button,.vf-icon-btn{transition:none!important}
  .hero-media,.vf-icon-btn{animation:none!important}
 }
+
+
+/* ===== VISIBLE CINEMATIC REFRESH v2 ===== */
+html body{background:#070907!important;color:#f3f6ed!important}
+body .nav{background:rgba(7,9,7,.92)!important;border-bottom:1px solid rgba(201,239,120,.16)!important}
+body .hero{
+  min-height:680px!important;
+  background:
+    radial-gradient(ellipse at 80% 30%,rgba(155,201,75,.12),transparent 35%),
+    linear-gradient(115deg,#060806 0%,#0b1008 65%,#11190d 100%)!important;
+}
+body .hero h1{font-size:clamp(3.5rem,6.5vw,7rem)!important;letter-spacing:-.075em!important;line-height:.94!important}
+body .hero h1 em{color:#c9ef78!important}
+body .hero .primary{background:#c9ef78!important;color:#081006!important;border:1px solid #c9ef78!important}
+body .hero .ghost{border:1px solid rgba(201,239,120,.42)!important}
+body .hero-visual{min-height:500px!important}
+body .hero-media-one,body .hero-media-two,body .hero-media-three{
+  border:1px solid rgba(201,239,120,.68)!important;
+  border-radius:4px!important;
+  overflow:hidden!important;
+}
+body .hero-media-one{box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 0 4px rgba(201,239,120,.06)!important}
+body .section-head h2,body .category-heading h3,body .contact h2{letter-spacing:-.065em!important}
+body .work-image.video-card{border:1px solid rgba(201,239,120,.4)!important;border-radius:4px!important}
+body .work-info h3{font-size:1.25rem!important}
+body .services{background:linear-gradient(130deg,#0b1009,#080a07)!important}
+body .contact{border-top:1px solid rgba(201,239,120,.2)!important}
+@media(max-width:800px){
+ body .hero{min-height:0!important}
+ body .hero h1{font-size:clamp(3.15rem,13vw,5rem)!important}
+ body .hero-visual{min-height:370px!important;height:380px!important}
+}
