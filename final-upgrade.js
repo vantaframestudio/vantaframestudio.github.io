@@ -2,6 +2,30 @@
 /* Vantaframe Studio — final upgrade behavior
    Does not replace, edit, or change any existing video source. */
 (function(){
+
+  /* Car-first intro: let the existing Lamborghini hero video lead, then reveal the headline and copy. */
+  const introHero=document.querySelector(".hero");
+  const introCopy=document.querySelector(".hero-copy");
+  const introCar=document.querySelector(".hero-media-one video");
+  const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(introHero && introCopy && !reduceMotion){
+    document.body.classList.add("vf-car-intro");
+    const revealCopy=function(){
+      window.setTimeout(function(){document.body.classList.add("vf-car-copy-visible");},1350);
+    };
+    if(introCar && introCar.readyState < 2){
+      let started=false;
+      const onceReady=function(){if(started)return;started=true;revealCopy();};
+      introCar.addEventListener("loadeddata",onceReady,{once:true});
+      introCar.addEventListener("error",onceReady,{once:true});
+      window.setTimeout(onceReady,1700);
+    }else{
+      revealCopy();
+    }
+  }else if(introHero && introCopy){
+    document.body.classList.add("vf-car-copy-visible");
+  }
+
   function makeIcon(type){
     if(type==="whatsapp") return '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.8 1.9 6.8L3 29l6.8-2.1c1.9 1 4 1.6 6.2 1.6 7 0 12.7-5.6 12.7-12.6C28.7 8.6 23 3 16 3Zm0 23c-2 0-3.9-.5-5.5-1.5l-.4-.2-4 1.2 1.2-3.9-.3-.4a10.3 10.3 0 0 1-1.7-5.6C5.3 9.7 10.1 5 16 5c5.9 0 10.7 4.7 10.7 10.6 0 5.9-4.8 10.4-10.7 10.4Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.3c-.3-.6-.5-.6-.7-.6h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.3 5.2 4.5.7.3 1.3.5 1.7.6.7.2 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4Z"/></svg>';
     if(type==="instagram") return '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="4" y="4" width="24" height="24" rx="7"/><circle cx="16" cy="16" r="6.2"/><circle cx="23" cy="9" r="1.4" fill="currentColor" stroke="none"/></svg>';
