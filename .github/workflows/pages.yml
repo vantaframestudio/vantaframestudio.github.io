@@ -50,6 +50,16 @@ jobs:
           ffmpeg -hide_banner -loglevel error -y -i "videos/Story 2.MOV" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "web-videos/Story-2.mp4"
           ffmpeg -hide_banner -loglevel error -y -i "videos/Vantaframe ID .MOV" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "web-videos/Vantaframe-ID.mp4"
 
+      - name: Generate Open Graph PNG preview
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --quiet cairosvg
+          python - <<'PY'
+          import cairosvg
+          cairosvg.svg2png(url="og-preview.svg", write_to="og-preview.png", output_width=1200, output_height=630)
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
