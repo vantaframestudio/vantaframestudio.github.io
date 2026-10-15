@@ -33,7 +33,7 @@
   }
 
   const contact=document.querySelector(".contact-links");
-  const inquiryMessage="Hi Vantaframe Studio, I found you through your website and I'm interested in getting an AI advertisement for my business. I'd like to know more about your services, pricing, and how we can get started.";
+  const inquiryMessage="Hi Vantaframe Studio, I found you through your website and I am interested in your services. I would like to know more about AI ads, website design, pricing, and how we can get started.";
   const whatsappUrl="https://wa.me/2348102992744?text="+encodeURIComponent(inquiryMessage);
   const emailUrl="mailto:benjaminadarefe@gmail.com?subject="+encodeURIComponent("AI Advertisement Inquiry")+"&body="+encodeURIComponent(inquiryMessage);
   if(contact){
@@ -104,7 +104,7 @@
     }
     function openBot(){
       panel.classList.add("open");panel.setAttribute("aria-hidden","false");launch.classList.add("hidden");
-      if(!messages.children.length) addMessage("Hi! I’m Vantaframe AI. I can answer questions about our advertising services, explain how projects work, and help you prepare a project request.");
+      if(!messages.children.length) addMessage("Hi! I’m Vantaframe AI. I can answer questions about our AI advertising and website design services, explain pricing, and help you prepare a project request.");
       setTimeout(()=>input.focus(),120);
     }
     function closeBot(){panel.classList.remove("open");panel.setAttribute("aria-hidden","true");launch.classList.remove("hidden");}
@@ -141,11 +141,11 @@
       }
 
       if(q.includes("service")||q.includes("what do you")||q.includes("offer")||q.includes("what is vantaframe")){
-        addMessage("Vantaframe Studio creates premium AI-powered advertisements and short-form commercial content for businesses — including product ads, service ads, social media commercials, real estate, automotive, fashion, and other promotional videos.");
+        addMessage("Vantaframe Studio offers two main services: AI-powered advertisements (product ads, commercials and social videos) and website design (business websites, portfolios, landing pages and online stores). We build modern, mobile-friendly experiences for businesses.");
         return;
       }
       if(q.includes("price")||q.includes("cost")||q.includes("pricing")||q.includes("how much")){
-        addMessage("Project pricing is customized rather than one fixed price. It can depend on the video length, number of scenes, production complexity, editing, voice-over, and revisions.");
+        addMessage("For AI ads, pricing depends on length, scenes, production complexity, editing and revisions. Website design starts at ₦75,000 for a 1–3 page Starter site, ₦150,000 for Business Pro, and ₦300,000+ for a premium custom site. Online stores start at ₦400,000. Domain, hosting and paid tools are separate unless included in the quote.");
         addMessage("If you want, I can collect your project details and send a ready-to-review brief to Vantaframe Studio.");
         addMessage("Would you like to start a project?", "bot", [{label:"Yes, start",onClick:startProject}]);
         return;
@@ -158,6 +158,11 @@
           {label:"Open WhatsApp",onClick:()=>window.open("https://wa.me/2348102992744?text="+encodeURIComponent(inquiryMessage),"_blank")},
           {label:"Prepare project brief",onClick:startProject}
         ]);
+        return;
+      }
+      if(q.includes("website")||q.includes("web design")||q.includes("web development")||q.includes("landing page")||q.includes("online store")||q.includes("ecommerce")||q.includes("e-commerce")){
+        addMessage("We design mobile-friendly business websites, company portfolios, landing pages and online stores. Starting prices: Starter website ₦75,000 (1–3 pages), Business Pro ₦150,000, Premium custom website ₦300,000+, and online stores from ₦400,000. Domain, hosting and paid tools are separate unless included in the quote.");
+        addMessage("Would you like to discuss a website project?", "bot", [{label:"Start a project",onClick:startProject}]);
         return;
       }
       if(q.includes("video")||q.includes("commercial")||q.includes("ugc")||q.includes("reels")||q.includes("tiktok")||q.includes("youtube")||q.includes("instagram")){
