@@ -57,7 +57,7 @@ jobs:
           python -m pip install --quiet cairosvg
           python - <<'PY'
           import cairosvg
-          cairosvg.svg2png(url="og-preview.svg", write_to="og-preview.png", output_width=1200, output_height=630)
+          cairosvg.svg2png(url="og-preview.svg", write_to="og-preview-v2.png", output_width=1200, output_height=630)
           PY
 
       - name: Setup Pages
