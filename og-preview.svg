@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050706"/><stop offset=".55" stop-color="#101713"/><stop offset="1" stop-color="#020303"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b7ff5e"/><stop offset="1" stop-color="#37d879"/></linearGradient>
+ <linearGradient id="car" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5750"/><stop offset=".45" stop-color="#171d1a"/><stop offset="1" stop-color="#050706"/></linearGradient>
+ <radialGradient id="glow"><stop offset="0" stop-color="#42ee8a" stop-opacity=".28"/><stop offset="1" stop-color="#42ee8a" stop-opacity="0"/></radialGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="24"/></filter>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<ellipse cx="860" cy="355" rx="400" ry="255" fill="url(#glow)"/>
+<path d="M740 55H1135V555H740" fill="none" stroke="#63f59c" stroke-opacity=".7" stroke-width="2"/>
+<path d="M780 80H1107V530H780" fill="none" stroke="#63f59c" stroke-opacity=".22" stroke-width="1"/>
+<circle cx="1100" cy="80" r="4" fill="#aaff66"/><circle cx="780" cy="530" r="4" fill="#aaff66"/>
+<g font-family="Arial, Helvetica, sans-serif">
+ <text x="76" y="120" fill="#b5ff67" font-size="18" font-weight="700" letter-spacing="5">CREATIVE STUDIO · GLOBAL</text>
+ <text x="72" y="205" fill="#ffffff" font-size="54" font-weight="800" letter-spacing="1">VANTAFRAME</text>
+ <text x="76" y="258" fill="#ffffff" font-size="42" font-weight="800" letter-spacing="5">STUDIO<tspan fill="#9cff59">.</tspan></text>
+ <rect x="76" y="294" width="84" height="5" rx="2.5" fill="url(#green)"/>
+ <text x="76" y="352" fill="#e5ece7" font-size="22" font-weight="700" letter-spacing="1">AI ADS. WEBSITE DESIGN.</text>
+ <text x="76" y="389" fill="#aebbb2" font-size="20" letter-spacing=".5">Creative that moves brands.</text>
+ <text x="76" y="540" fill="#87958c" font-size="14" letter-spacing="3">VANTAFRAMESTUDIO.GITHUB.IO</text>
+</g>
+<!-- stylized cinematic sports car -->
+<ellipse cx="930" cy="475" rx="235" ry="26" fill="#000" opacity=".8"/>
+<path d="M710 405 L754 365 Q782 344 832 330 L900 279 Q928 260 969 273 L1042 321 Q1075 333 1100 365 L1132 397 L1130 433 L1092 451 L760 451 L710 432 Z" fill="url(#car)" stroke="#64776b" stroke-width="2"/>
+<path d="M840 326 L905 287 Q929 273 961 283 L1017 322 Z" fill="#0a1510" stroke="#8ba393" stroke-opacity=".7" stroke-width="2"/>
+<path d="M969 285 L1010 322 L1040 329 L1004 292 Q988 282 969 285Z" fill="#172720"/>
+<path d="M747 369 Q804 350 841 350 L1018 350 Q1060 354 1095 382 L1117 401 L1048 391 L1000 374 L832 377 L760 397 L718 407Z" fill="#202a24"/>
+<path d="M720 408 L803 393 L851 398 L835 415 L734 427Z" fill="#caff9a"/>
+<path d="M1011 391 L1098 398 L1121 411 L1087 423 L1018 414Z" fill="#b6ff79"/>
+<path d="M761 439 L1088 439" stroke="#b4ff6e" stroke-width="3" stroke-linecap="round"/>
+<path d="M847 355 L1000 355" stroke="#72847a" stroke-width="2" opacity=".7"/>
+<circle cx="815" cy="440" r="39" fill="#050706" stroke="#3d4b42" stroke-width="7"/>
+<circle cx="815" cy="440" r="22" fill="#17201a" stroke="#8b9c8e" stroke-width="3"/>
+<circle cx="815" cy="440" r="7" fill="#9cff59"/>
+<circle cx="1053" cy="440" r="39" fill="#050706" stroke="#3d4b42" stroke-width="7"/>
+<circle cx="1053" cy="440" r="22" fill="#17201a" stroke="#8b9c8e" stroke-width="3"/>
+<circle cx="1053" cy="440" r="7" fill="#9cff59"/>
+<path d="M682 489 H1134" stroke="#58ee8c" stroke-opacity=".38" stroke-width="2"/>
+<path d="M698 501 H1042" stroke="#58ee8c" stroke-opacity=".16" stroke-width="1"/>
+<text x="1100" y="585" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#8e9c91" letter-spacing="2">AI FILM / ADS / WEB</text>
+</svg>
