@@ -355,3 +355,48 @@ body footer{background:#030403!important;border-top:1px solid rgba(255,255,255,.
  body .section{padding:76px 20px!important}
  body .section-head{grid-template-columns:1fr!important}
 }
+
+
+/* ===== CAR-FIRST HERO INTRO — OCT 15 ===== */
+/* The car footage gets the first moment; hero copy reveals after the visual entrance. */
+html.js body.vf-car-intro:not(.vf-car-copy-visible) .hero-copy{
+  opacity:0!important;
+  transform:translate3d(0,26px,0)!important;
+  visibility:hidden!important;
+}
+html.js body.vf-car-intro .hero-copy{
+  transition:opacity .85s ease,transform .85s cubic-bezier(.2,.75,.2,1),visibility .85s;
+}
+html.js body.vf-car-intro.vf-car-copy-visible .hero-copy{
+  opacity:1!important;
+  transform:translate3d(0,0,0)!important;
+  visibility:visible!important;
+}
+html.js body.vf-car-intro .hero-media-one{
+  animation:vfCarHeroEntrance 1.25s cubic-bezier(.16,.8,.24,1) both;
+  transform-origin:center center;
+}
+html.js body.vf-car-intro .hero-media-two{
+  animation:vfCarSideEntrance .95s .28s cubic-bezier(.16,.8,.24,1) both;
+}
+html.js body.vf-car-intro .hero-media-three{
+  animation:vfCarSideEntrance .95s .42s cubic-bezier(.16,.8,.24,1) both;
+}
+@keyframes vfCarHeroEntrance{
+  0%{opacity:0;transform:translate(-50%,-46%) scale(.88);filter:brightness(.55) blur(4px)}
+  65%{opacity:1;transform:translate(-50%,-50%) scale(1.025);filter:brightness(1.08) blur(0)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:brightness(1) blur(0)}
+}
+@keyframes vfCarSideEntrance{
+  0%{opacity:0;filter:blur(3px)}
+  100%{opacity:.72;filter:blur(0)}
+}
+@media(max-width:900px){
+  html.js body.vf-car-intro:not(.vf-car-copy-visible) .hero-copy{min-height:290px}
+}
+@media(prefers-reduced-motion:reduce){
+  html.js body.vf-car-intro .hero-media-one,
+  html.js body.vf-car-intro .hero-media-two,
+  html.js body.vf-car-intro .hero-media-three{animation:none!important}
+  html.js body.vf-car-intro:not(.vf-car-copy-visible) .hero-copy{opacity:1!important;transform:none!important;visibility:visible!important}
+}
