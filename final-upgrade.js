@@ -111,11 +111,11 @@
     function send(value){value=(value||"").trim();if(!value)return;addMessage(value,"user");input.value="";setTimeout(()=>reply(value),180);}
     function handoff(){
       const lines=[
-        "Hi Vantaframe Studio, I’d like to discuss an AI advertisement.",
+        "Hi Vantaframe Studio, I’d like to discuss a project.",
         "Name: "+(lead.name||"Not provided"),
         "Business: "+(lead.business||"Not provided"),
-        "Product/service: "+(lead.service||"Not provided"),
-        "Preferred format: "+(lead.format||"Not provided"),
+        "Project type: "+(lead.service||"Not provided"),
+        "Project goal: "+(lead.format||"Not provided"),
         "Budget range: "+(lead.budget||"Not provided"),
         "Contact: "+(lead.contact||"Not provided"),
         "I found Vantaframe through the website."
@@ -127,61 +127,88 @@
       addMessage("Great. Let’s get the project details together. What’s your name?");
     }
     function reply(raw){
-      const q=raw.toLowerCase();
+      const q=raw.toLowerCase().replace(/[’']/g,"").replace(/[^a-z0-9£₦]+/g," ").trim();
+      const has=(words)=>words.some(word=>q.includes(word));
+      const websiteIntent=has(["website","web design","web development","portfolio","landing page","online store","ecommerce","e commerce"]);
+      const adIntent=has(["advert","video ad","commercial","ugc","social media","reel","campaign","promo"]);
+      const pricingIntent=has(["price","pricing","cost","how much","budget","rate","£","₦"]);
+      const contactIntent=has(["contact","whatsapp","human","speak to","talk to someone","email"]);
+      const beginIntent=has(["start a project","get started","hire you","book","work with you","i need","i want"]);
+      const goToPricing=()=>{window.location.hash="website-pricing";};
+      const openWhatsApp=()=>window.open("https://wa.me/2348102992744?text="+encodeURIComponent(inquiryMessage),"_blank","noopener");
+      const askProject=()=>addMessage("I can help prepare a short project brief. Would you like to discuss a website, an AI advert, or both?", "bot", [
+        {label:"Website",onClick:()=>{lead.service="Website design";startProject();}},
+        {label:"AI advert",onClick:()=>{lead.service="AI advert";startProject();}},
+        {label:"Both",onClick:()=>{lead.service="Website and AI advert";startProject();}}
+      ]);
 
-      if(captureStep==="name"){lead.name=raw;captureStep="business";addMessage("Nice to meet you, "+raw+"! What’s the name of your business?");return;}
-      if(captureStep==="business"){lead.business=raw;captureStep="service";addMessage("What product or service do you want the ad to promote?");return;}
-      if(captureStep==="service"){lead.service=raw;captureStep="format";addMessage("What kind of content are you looking for? For example: product ad, service ad, social media commercial, real estate, automotive, or something else.");return;}
-      if(captureStep==="format"){lead.format=raw;captureStep="budget";addMessage("Do you already have a budget range in mind? You can say something like ₦50k–₦100k, or simply say “not sure.”");return;}
-      if(captureStep==="budget"){lead.budget=raw;captureStep="contact";addMessage("Finally, what’s the best WhatsApp number or contact detail for the project?");return;}
+      if(captureStep==="name"){lead.name=raw;captureStep="business";addMessage("Thanks, "+raw+". What is your business or brand called?");return;}
+      if(captureStep==="business"){lead.business=raw;captureStep="service";addMessage("What would you like us to create: a website, an AI advert, or both?");return;}
+      if(captureStep==="service"){lead.service=raw;captureStep="format";addMessage("What should the project help you achieve? For example, more enquiries, a stronger brand presence, or launching a product.");return;}
+      if(captureStep==="format"){lead.format=raw;captureStep="budget";addMessage("Do you have a budget range or preferred package in mind? You can also say you are not sure.");return;}
+      if(captureStep==="budget"){lead.budget=raw;captureStep="contact";addMessage("What is the best email address or WhatsApp number for the project?");return;}
       if(captureStep==="contact"){
         lead.contact=raw;captureStep="";
-        addMessage("Perfect. I’ve got the project brief. You can send it directly to Vantaframe Studio on WhatsApp.", "bot", [{label:"Send project to WhatsApp",onClick:handoff}]);
+        addMessage("Here is your project brief. You can review it and send it to Vantaframe Studio on WhatsApp.", "bot", [{label:"Send project brief",onClick:handoff}]);
         return;
       }
 
-      if(q.includes("service")||q.includes("what do you")||q.includes("offer")||q.includes("what is vantaframe")){
-        addMessage("Vantaframe Studio offers two main services: AI-powered advertisements (product ads, commercials and social videos) and website design (business websites, portfolios, landing pages and online stores). We build modern, mobile-friendly experiences for businesses.");
+      if(has(["hello","hi","hey","good morning","good afternoon","good evening"])){
+        addMessage("Hi! I can explain our AI advertising and website services, share the listed starting price, or help you prepare a project brief. What are you planning?");
         return;
       }
-      if(q.includes("price")||q.includes("cost")||q.includes("pricing")||q.includes("how much")){
-        addMessage("For AI ads, pricing depends on length, scenes, production complexity, editing and revisions. Website design starts at ₦75,000 for a 1–3 page Starter site, ₦150,000 for Business Pro, and ₦300,000+ for a premium custom site. Online stores start at ₦400,000. Domain, hosting and paid tools are separate unless included in the quote.");
-        addMessage("If you want, I can collect your project details and send a ready-to-review brief to Vantaframe Studio.");
-        addMessage("Would you like to start a project?", "bot", [{label:"Yes, start",onClick:startProject}]);
-        return;
-      }
-      if(q.includes("start")||q.includes("want an ad")||q.includes("need an ad")||q.includes("create an ad")||q.includes("advert")){
-        startProject();return;
-      }
-      if(q.includes("contact")||q.includes("whatsapp")||q.includes("human")||q.includes("speak to someone")){
-        addMessage("Absolutely. You can contact the Vantaframe team directly on WhatsApp, or I can prepare a project brief for you first.", "bot", [
-          {label:"Open WhatsApp",onClick:()=>window.open("https://wa.me/2348102992744?text="+encodeURIComponent(inquiryMessage),"_blank")},
-          {label:"Prepare project brief",onClick:startProject}
+      if(contactIntent){
+        addMessage("You can reach Vantaframe Studio by WhatsApp or email. I can also prepare a project brief first.", "bot", [
+          {label:"Open WhatsApp",onClick:openWhatsApp},
+          {label:"Prepare a project brief",onClick:askProject}
         ]);
         return;
       }
-      if(q.includes("website")||q.includes("web design")||q.includes("web development")||q.includes("landing page")||q.includes("online store")||q.includes("ecommerce")||q.includes("e-commerce")){
-        addMessage("We design mobile-friendly business websites, company portfolios, landing pages and online stores. Starting prices: Starter website ₦75,000 (1–3 pages), Business Pro ₦150,000, Premium custom website ₦300,000+, and online stores from ₦400,000. Domain, hosting and paid tools are separate unless included in the quote.");
-        addMessage("Would you like to discuss a website project?", "bot", [{label:"Start a project",onClick:startProject}]);
+      if(pricingIntent){
+        addMessage("The basic website package starts from £600. Business Pro, Premium and online store projects are quoted to scope. A local Naira quote is available on request. AI advert pricing depends on the length, creative, production and deliverables.", "bot", [
+          {label:"See website packages",onClick:goToPricing},
+          {label:"Discuss a project",onClick:askProject}
+        ]);
         return;
       }
-      if(q.includes("video")||q.includes("commercial")||q.includes("ugc")||q.includes("reels")||q.includes("tiktok")||q.includes("youtube")||q.includes("instagram")){
-        addMessage("Yes. The ads can be designed for platforms such as TikTok, Instagram, YouTube Shorts, WhatsApp, and other social platforms.");
+      if(websiteIntent){
+        addMessage("We build mobile-friendly business and portfolio websites, landing pages and online stores. The basic website starts from £600; larger projects are quoted to scope. Tell me what your website needs to do and I can help you prepare a project brief.", "bot", [
+          {label:"See website packages",onClick:goToPricing},
+          {label:"Plan a website",onClick:()=>{lead.service="Website design";startProject();}}
+        ]);
         return;
       }
-      if(q.includes("nigeria")||q.includes("nigerian")){
-        addMessage("Yes. Vantaframe can tailor the creative to Nigerian businesses, locations, audiences, products, and brand styles.");
+      if(adIntent){
+        addMessage("We create AI product ads, commercials and social videos for platforms such as Instagram, TikTok, YouTube and WhatsApp. The creative and quote depend on your product, audience, video length and deliverables. What are you promoting?");
+        addMessage("I can collect the details for a project brief whenever you are ready.", "bot", [{label:"Plan an advert",onClick:()=>{lead.service="AI advert";startProject();}}]);
         return;
       }
-      if(q.includes("how does it work")||q.includes("how it works")||q.includes("process")){
-        addMessage("The usual process is: understand your business and offer → plan the creative → produce the AI visuals → edit the commercial → review and refine → deliver the final video.");
+      if(has(["process","how does it work","how it works","timeline","how long","delivery"])){
+        addMessage("We start by understanding your goals and scope, then agree on the creative direction, deliverables, timeline and quote before production. Timing depends on the project size and any revisions.");
+        addMessage("Would you like to discuss a website or an AI advert?", "bot", [
+          {label:"Website",onClick:()=>{lead.service="Website design";startProject();}},
+          {label:"AI advert",onClick:()=>{lead.service="AI advert";startProject();}}
+        ]);
         return;
       }
-      if(q.includes("realistic")||q.includes("look real")){
-        addMessage("Yes. The creative can be directed toward realistic, premium-looking visuals rather than an obviously artificial style.");
+      if(has(["revision","changes","edit","update","maintenance","hosting","domain","payment"])){
+        addMessage("Those details depend on the agreed project scope. We confirm deliverables, revisions, timeline and any hosting or paid-service costs in the written quote before work begins. What are you looking to build?");
         return;
       }
-      addMessage("I can help with Vantaframe’s services, pricing approach, ad formats, project process, or getting your project brief to the team. Try asking me about any of those.");
+      if(has(["service","what do you do","offer","what is vantaframe"])){
+        addMessage("Vantaframe Studio offers AI video advertising and website design, including business websites, portfolios, landing pages and online stores. We can help you decide which service fits your goal.");
+        askProject();
+        return;
+      }
+      if(has(["nigeria","nigerian","naira","local"])){
+        addMessage("Yes. Vantaframe Studio works with Nigerian businesses and can provide a local Naira quote on request. Projects are scoped around your audience, goals and deliverables.");
+        return;
+      }
+      if(beginIntent){
+        askProject();
+        return;
+      }
+      addMessage("I can help with AI adverts, websites, starting prices, project scope or contacting the studio. What are you hoping to create?");
     }
 
     launch.addEventListener("click",openBot);close.addEventListener("click",closeBot);
